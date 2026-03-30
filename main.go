@@ -11,6 +11,7 @@ func main() {
 	http.HandleFunc("/", helloUser)
 	http.HandleFunc("/show-tasks", showTasks)
 	http.HandleFunc("/add-task", addTask)
+	http.HandleFunc("/delete-task", deleteTask)
 
 	http.ListenAndServe(":8080", nil)
 }
@@ -44,6 +45,18 @@ func addTask(writer http.ResponseWriter, request *http.Request) {
 		task := request.FormValue("task")
 		if task != "" {
 			taskItems = append(taskItems, task)
+		}
+	}
+	http.Redirect(writer, request, "/show-tasks", http.StatusSeeOther)
+}
+
+func deleteTask(writer http.ResponseWriter, request *http.Request) {
+	if request.Method == http.MethodPost {
+		indexStr := request.FormValue("index")
+		index, err := strconv.Atoi(indexStr)
+
+		if err == nil && index >= 0 && index < len(taskItems) {
+			taskItems = append(taskItems[:index], taskItems[index+1:]...)
 		}
 	}
 	http.Redirect(writer, request, "/show-tasks", http.StatusSeeOther)
