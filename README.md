@@ -70,6 +70,6 @@ todo-app/
 - Add a REST API with JSON responses
 - Write unit tests for each handler
 
-## License
+## Learnt from
 
-MIT
+Youtube and optimised it a little
